@@ -2,7 +2,12 @@ import React from "react";
 import './sign-in.styles.scss'
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import { signInWithGooglePopup, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+
+const logGoogleUser = async () => {
+    const { user } = await signInWithGooglePopup();
+    const userDocRef = createUserDocumentFromAuth(user);
+}
 
 class SignIn extends React.Component{
     constructor(props){
@@ -50,7 +55,7 @@ class SignIn extends React.Component{
 
                     <div className="buttons">
                         <CustomButton type="submit">Sign In</CustomButton>
-                        <CustomButton onClick = { signInWithGoogle } isGoogleSignIn>
+                        <CustomButton onClick = { logGoogleUser } isGoogleSignIn>
                         Sign in with Google
                         </CustomButton>
                     </div>
