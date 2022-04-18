@@ -2,12 +2,11 @@ import React from "react";
 import { useState } from "react";
 import './sign-in.styles.scss'
 import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.component";
 import { 
     signInWithGooglePopup, 
-    createUserDocumentFromAuth ,
     signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
+import Button from "../button/button.component";
 
 const defaultFormFields = {
     email: '',
@@ -28,15 +27,18 @@ const SignInForm = () => {
     }
 
     const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        createUserDocumentFromAuth(user);
+        await signInWithGooglePopup(); 
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            await signInAuthUserWithEmailAndPassword(email, password);
+            await signInAuthUserWithEmailAndPassword(
+                email, 
+                password
+            );
+
             resetFormFields();
         } catch(error) {
             switch(error.code){
@@ -77,10 +79,10 @@ const SignInForm = () => {
                 />
 
                 <div className="buttons">
-                    <CustomButton type="submit">Sign In</CustomButton>
-                    <CustomButton type="button" onClick = { signInWithGoogle } isGoogleSignIn>
+                    <Button buttonType='inverted' type="submit">Sign In</Button>
+                    <Button buttonType='google' type="button" onClick = { signInWithGoogle } isGoogleSignIn>
                     Sign in with Google
-                    </CustomButton>
+                    </Button>
                 </div>
 
             </form>
