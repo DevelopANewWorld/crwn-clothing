@@ -1,4 +1,5 @@
-import "./cart-dropdown.styles.jsx";
+import "./cart-dropdown.styles";
+import { useCallback } from "react";
 import Button from "../button/button.component";
 import { useNavigate } from "react-router-dom";
 import CartItem from "../cart-item/cart-item.component";
@@ -13,9 +14,10 @@ import { selectCartItems } from "../../store/cart/cart.selector";
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
   const navigate = useNavigate();
-  const goToCheckoutHandler = () => {
+
+  const goToCheckoutHandler = useCallback(() => {
     navigate("/checkout");
-  };
+  }, []);
 
   return (
     <CartDropdownContainer>

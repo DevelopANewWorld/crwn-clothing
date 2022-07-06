@@ -9,6 +9,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "./utils/stripe/stripe.utils";
 
+import * as serviceWorker from './serviceWorkerRegistration'
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -23,3 +25,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+
+serviceWorker.register();
